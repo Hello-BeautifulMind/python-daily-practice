@@ -1,3 +1,3 @@
 # python-daily-practice
-## 题目
-来自“Python 练习册，每天一个小程序”，链接
+## 说明
+题目来自“Python 练习册，每天一个小程序(https://github.com/Yixiaohan/show-me-the-code)”
