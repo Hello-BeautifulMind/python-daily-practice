@@ -38,6 +38,13 @@ def quick_sort(sorted_data, left, right):
 		a、以一个基准值分界，左边部分都比右边部分小
 		b、然后对左右部分进行相同的操作，当左右部分数据个数都为1时排序结束
 	1、选择一个基准值
+	2、确定左右旗标，左右旗标分别用于从左和从右扫描时定位
+	3、如果左旗标不大于右旗标
+		从右往左扫描，找到小于基准值的位置
+		从左往右扫描，找到大于基准值的位置
+		交换两个位置的值
+	4、一轮结束后位于右旗标左边的数据(包括右旗标)都不大于右边的数
+	5、最后就可以将基准值与右旗标的值交换位置
 	'''
 	if left >= right:			# 待处理数据只为一个返回
 		return sorted_data
@@ -60,12 +67,34 @@ def quick_sort(sorted_data, left, right):
 	quick_sort(sorted_data, j+1, right)
 	return sorted_data
 
+# Insert sort
+def insert_sort(sorted_data):
+	'''
+	插入排序--基本思想：在一个有序序列中从后向前扫描，将未排序数据插入到有序序列中合适的位置
+	1、第一个数作为初始的有序序列（因为只有一个数，所以肯定是有序的）
+	2、取未排序数据的第一个作为待排序数据
+	3、在有序序列从后向前扫描找到待排序数据的位置，该位置后的有序数据都往后挪位，为待排序数据提供插入空间
+	4、重复2
+	'''
+	if len(sorted_data) <= 1:
+		return sorted_data
+
+	for pos, sort_data in enumerate(sorted_data[1:]):
+		insert_pos = pos
+		while insert_pos >= 0 and sorted_data[insert_pos] > sort_data:
+			sorted_data[insert_pos + 1] = sorted_data[insert_pos]
+			insert_pos -= 1
+		sorted_data[insert_pos+1] = sort_data
+
+	return sorted_data
+
 
 
 if __name__ == '__main__':
-	sorted_data = list(range(10, 10))			# 待排序数据，数据量大的话可以明显看出区别
+	sorted_data = list(range(-100, 100))			# 待排序数据，数据量大的话可以明显看出区别
 	random.shuffle(sorted_data)			# 打乱顺序
 	print('排序前：', sorted_data)
-	sort_results = bubble_sort2(sorted_data.copy())
+	#sort_results = bubble_sort2(sorted_data.copy())
 	#sort_results = quick_sort(sorted_data, 0, len(sorted_data) - 1)
+	sort_results = insert_sort(sorted_data)
 	print('排序后：', sort_results)
