@@ -12,10 +12,10 @@ def bubble_sort1(sorted_data):
 	i = 1
 	length = len(sorted_data)
 	while i < length:
-		for j in range(length-i):			# 冒泡方向是从头冒到尾部
+		for j in range(length-i):		# 冒泡方向是从头冒到尾部
 			if sorted_data[j] > sorted_data[j+1]:		# 如果需要按由大到小改变比较符号就行
-				sorted_data[j], sorted_data[j+1] = sorted_data[j+1], sorted_data[j]			# 两两交换
-		i += 1			# 下一轮冒泡
+				sorted_data[j], sorted_data[j+1] = sorted_data[j+1], sorted_data[j]		# 两两交换
+		i += 1		# 下一轮冒泡
 	return sorted_data
 
 def bubble_sort2(sorted_data):
@@ -25,7 +25,7 @@ def bubble_sort2(sorted_data):
 	i = 1
 	length = len(sorted_data)
 	while i < length:
-		for j in range(length-1, i-1, -1):			# 从底往上冒
+		for j in range(length-1, i-1, -1):		# 从底往上冒
 			if sorted_data[j-1] > sorted_data[j]:
 				sorted_data[j-1], sorted_data[j] = sorted_data[j], sorted_data[j-1]
 		i += 1
@@ -52,10 +52,10 @@ def quick_sort(sorted_data, left, right):
 	i, j = left+1, right			# 待比较数据旗标
 
 	while i <= j:
-		while j >= i and sorted_data[j] >= benchmark:			# 跳出循环说明位置j的值小于基准值，>= benchmark 而不是>benchmark是避免两个数都相等时跳不出循环
-			j -= 1												# 或者最左边的值都还大于等于基准值		
-		while i <= j and sorted_data[i] <= benchmark:			# 跳出循环说明位置i的值大于于基准值
-			i += 1												# 或者最右边的值都还小于等于基准值					
+		while j >= i and sorted_data[j] >= benchmark:		# 跳出循环说明位置j的值小于基准值，>= benchmark 而不是>benchmark是避免两个数都相等时跳不出循环
+			j -= 1		# 或者最左边的值都还大于等于基准值		
+		while i <= j and sorted_data[i] <= benchmark:		# 跳出循环说明位置i的值大于于基准值
+			i += 1			# 或者最右边的值都还小于等于基准值					
 		if i < j:
 			sorted_data[i], sorted_data[j] = sorted_data[j], sorted_data[i]
 			j -= 1
@@ -79,7 +79,7 @@ def insert_sort(sorted_data):
 	for pos, sort_data in enumerate(sorted_data[1:]):
 		insert_pos = pos
 		while insert_pos >= 0 and sorted_data[insert_pos] > sort_data:
-			sorted_data[insert_pos + 1] = sorted_data[insert_pos]			# 往后挪位
+			sorted_data[insert_pos + 1] = sorted_data[insert_pos]		# 往后挪位
 			insert_pos -= 1
 		sorted_data[insert_pos+1] = sort_data
 
@@ -95,20 +95,20 @@ def binary_insert_sort(sorted_data):
 		left, right = 0, pos
 		while left <= right:
 			middle = (right + left) // 2
-			if sort_data > sorted_data[middle]:	# 待插入数据在有半部分
+			if sort_data > sorted_data[middle]:		# 待插入数据在有半部分
 				left = middle + 1
-			else:			# 待插入数据在左半部分
+			else:		# 待插入数据在左半部分
 				right = middle - 1
 		while pos >= left:			# 往后挪位
 			sorted_data[pos+1] = sorted_data[pos]
 			pos -= 1
-		sorted_data[left] = sort_data 			# 最终left位置就为待插入数据位置
+		sorted_data[left] = sort_data 		# 最终left位置就为待插入数据位置
 
 	return sorted_data
 
 
 if __name__ == '__main__':
-	sorted_data = list(range(-100, 100))			# 待排序数据，数据量大的话可以明显看出区别
+	sorted_data = list(range(-100, 100))		# 待排序数据，数据量大的话可以明显看出区别
 	random.shuffle(sorted_data)			# 打乱顺序
 	print('排序前：', sorted_data)
 	# sort_results = bubble_sort2(sorted_data.copy())
