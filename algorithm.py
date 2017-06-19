@@ -70,19 +70,16 @@ def quick_sort(sorted_data, left, right):
 # Insert sort
 def insert_sort(sorted_data):
 	'''
-	插入排序--基本思想：在一个有序序列中从后向前扫描，将未排序数据插入到有序序列中合适的位置
+	直接插入排序--基本思想：在一个有序序列中从后向前扫描，将未排序数据插入到有序序列中合适的位置
 	1、第一个数作为初始的有序序列（因为只有一个数，所以肯定是有序的）
 	2、取未排序数据的第一个作为待排序数据
 	3、在有序序列从后向前扫描找到待排序数据的位置，该位置后的有序数据都往后挪位，为待排序数据提供插入空间
 	4、重复2
 	'''
-	if len(sorted_data) <= 1:
-		return sorted_data
-
 	for pos, sort_data in enumerate(sorted_data[1:]):
 		insert_pos = pos
 		while insert_pos >= 0 and sorted_data[insert_pos] > sort_data:
-			sorted_data[insert_pos + 1] = sorted_data[insert_pos]
+			sorted_data[insert_pos + 1] = sorted_data[insert_pos]			# 往后挪位
 			insert_pos -= 1
 		sorted_data[insert_pos+1] = sort_data
 
@@ -90,8 +87,9 @@ def insert_sort(sorted_data):
 
 
 
+
 if __name__ == '__main__':
-	sorted_data = list(range(-100, 100))			# 待排序数据，数据量大的话可以明显看出区别
+	sorted_data = list(range(-1, -1))			# 待排序数据，数据量大的话可以明显看出区别
 	random.shuffle(sorted_data)			# 打乱顺序
 	print('排序前：', sorted_data)
 	#sort_results = bubble_sort2(sorted_data.copy())
