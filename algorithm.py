@@ -85,14 +85,34 @@ def insert_sort(sorted_data):
 
 	return sorted_data
 
+# Binary insert sort
+def binary_insert_sort(sorted_data):
+	'''
+	二分插入排序---与直接插入排序最大区别在于查找插入位置时使用的是二分查找的方式，
+	效率主要提高在待插入位置查找速度上
+	'''
+	for pos, sort_data in enumerate(sorted_data[1:]):
+		left, right = 0, pos
+		while left <= right:
+			middle = (right + left) // 2
+			if sort_data > sorted_data[middle]:	# 待插入数据在有半部分
+				left = middle + 1
+			else:			# 待插入数据在左半部分
+				right = middle - 1
+		while pos >= left:			# 往后挪位
+			sorted_data[pos+1] = sorted_data[pos]
+			pos -= 1
+		sorted_data[left] = sort_data 			# 最终left位置就为待插入数据位置
 
+	return sorted_data
 
 
 if __name__ == '__main__':
-	sorted_data = list(range(-1, -1))			# 待排序数据，数据量大的话可以明显看出区别
+	sorted_data = list(range(-100, 100))			# 待排序数据，数据量大的话可以明显看出区别
 	random.shuffle(sorted_data)			# 打乱顺序
 	print('排序前：', sorted_data)
-	#sort_results = bubble_sort2(sorted_data.copy())
-	#sort_results = quick_sort(sorted_data, 0, len(sorted_data) - 1)
-	sort_results = insert_sort(sorted_data)
+	# sort_results = bubble_sort2(sorted_data.copy())
+	# sort_results = quick_sort(sorted_data, 0, len(sorted_data) - 1)
+	# sort_results = insert_sort(sorted_data)
+	sort_results = binary_insert_sort(sorted_data)
 	print('排序后：', sort_results)
