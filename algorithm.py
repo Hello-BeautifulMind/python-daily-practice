@@ -106,6 +106,46 @@ def binary_insert_sort(sorted_data):
 
 	return sorted_data
 
+# Shell sort
+def shell_sort(sorted_data, dk):
+	'''
+	希尔排序--直接插入排序的改进
+	基本思想
+		设置一个递减增量对数据进行分组，在组内进行直接插入排序，
+		当增量为1也既最后只剩下一组并进行直接插入排序。
+	希尔排序较直接插入排序效率高的原因：
+		当n值很大时数据项每一趟排序需要移动的个数很少，但数据项的距离很长；
+		当n值减小时每一趟需要移动的数据增多，此时已经接近于它们排序后的最终位。
+	主要步骤
+	1、确定增量序列，本例使用hibbard增量，它是1, 3, 7, .......2^k - 1，这个序列可以在实践和理论上给出更好的结果
+	2、
+	'''
+	for d in dk:
+		for i in range(d):		#  给0...d的元素组队，间隔是d，然后对每一组进行直接插入排序
+			s = sorted_data[i::d]
+			for j, sort_data in enumerate(s[1:]):		# 对组进行直接插入排序
+				insert_pos = i + j * d;		# 组中元素在待排序数据中间隔是d
+				while insert_pos >= i and sorted_data[insert_pos] > sort_data:		# 直接插入排序
+					sorted_data[insert_pos+d] = sorted_data[insert_pos]
+					insert_pos -= d;
+				sorted_data[insert_pos+d] = sort_data
+	return sorted_data
+
+def get_dk(data_length):
+	'''
+	根据数据长度生成增量序列
+	'''
+	dk_list = list()
+	k = 1
+	while True:
+		dk = 2**k - 1
+		if dk < data_length:
+			dk_list.append(dk)
+			k += 1
+		else:
+			break
+	return reversed(dk_list)
+			
 
 if __name__ == '__main__':
 	sorted_data = list(range(-100, 100))		# 待排序数据，数据量大的话可以明显看出区别
@@ -114,5 +154,6 @@ if __name__ == '__main__':
 	# sort_results = bubble_sort2(sorted_data.copy())
 	# sort_results = quick_sort(sorted_data, 0, len(sorted_data) - 1)
 	# sort_results = insert_sort(sorted_data)
-	sort_results = binary_insert_sort(sorted_data)
+	# sort_results = binary_insert_sort(sorted_data)
+	sort_results = shell_sort(sorted_data, get_dk(len(sorted_data)))
 	print('排序后：', sort_results)
