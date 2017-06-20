@@ -145,7 +145,23 @@ def get_dk(data_length):
 		else:
 			break
 	return reversed(dk_list)
-			
+
+# Selection sort
+def select_sort(sorted_data):
+	'''
+	选择排序---在未排序序列中选择最值，然后将其插入到已排序序列之后
+	1）从左往右遍历数据，找到最值
+	2）将最值插入到已排序序列之后（首次遍历已排序序列还没有，最值插入到首位）
+	'''
+	data_length = len(sorted_data)
+	for insert_pos in range(data_length):		# 当前待插入位置
+		min_value_pos = insert_pos		# 保存最小值位置
+		for i in range(insert_pos+1, data_length):		# 在当前位置后寻找是否还有较待插入位置还小的值
+			if sorted_data[i] < sorted_data[min_value_pos]:		# 更新最小值位置
+				min_value_pos = i
+		if min_value_pos != insert_pos:		# 将最值放到待插入位置
+			sorted_data[insert_pos], sorted_data[min_value_pos] = sorted_data[min_value_pos], sorted_data[insert_pos]
+	return sorted_data	
 
 if __name__ == '__main__':
 	sorted_data = list(range(-100, 100))		# 待排序数据，数据量大的话可以明显看出区别
@@ -155,5 +171,6 @@ if __name__ == '__main__':
 	# sort_results = quick_sort(sorted_data, 0, len(sorted_data) - 1)
 	# sort_results = insert_sort(sorted_data)
 	# sort_results = binary_insert_sort(sorted_data)
-	sort_results = shell_sort(sorted_data, get_dk(len(sorted_data)))
+	# sort_results = shell_sort(sorted_data, get_dk(len(sorted_data)))
+	sort_results = select_sort(sorted_data)
 	print('排序后：', sort_results)
